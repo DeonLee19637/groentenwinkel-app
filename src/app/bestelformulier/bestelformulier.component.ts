@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GroenteService } from '../groente.service';
 import { WinkelService } from '../winkel.service';
+import { aantalValidator } from '../shared/aantal.validator';
 import { Winkel } from '../model/winkel';
 import { Groente } from '../model/groente';
 
@@ -14,7 +15,6 @@ export class BestelformulierComponent implements OnInit {
   bestelForm: FormGroup;
   groenten: (string | number)[][];
   winkels: Winkel[];
-  artikel = new Groente();
 
   constructor(private groenteService: GroenteService, private winkelService: WinkelService, private fb: FormBuilder){}
 
@@ -28,8 +28,7 @@ export class BestelformulierComponent implements OnInit {
     return this.bestelForm.get('aantal');
   }
   onSubmit() {
-    console.log(this.bestelForm.value);
-    //Geef enkel de naam door van de groente
+    //Geeft enkel de naam door van de groente
     let groenteNaam =  this.groente?.value.substring(0, this.groente?.value.indexOf('('));
     this.groenteService.addGroenteToMandje(this.naam?.value, groenteNaam, this.aantal?.value);
   }
@@ -38,9 +37,9 @@ export class BestelformulierComponent implements OnInit {
     this.groenteService.getGroenten().subscribe(groenten => this.groenten = groenten);
     this.winkelService.getWinkels().subscribe(winkels => this.winkels = winkels);
     this.bestelForm = this.fb.group({
-      naam: ['', [Validators.required]],
-      groente: ['', [Validators.required]],
-      aantal: ['', [Validators.required, Validators.min(1)]] //Aantal moet minstens 1 zijn
+      naam: ['De fruitmand', [Validators.required]],
+      groente: ['aardappelen (0.95/kg)', [Validators.required]],
+      aantal: ['', [Validators.required, Validators.min(1), aantalValidator]] //Aantal moet minstens 1 zijn
     });
   }
 }
