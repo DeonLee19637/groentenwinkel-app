@@ -39,7 +39,7 @@ export class BestelformulierComponent implements OnInit {
     this.bestelForm = this.fb.group({
       naam: ['De fruitmand', [Validators.required]],
       groente: ['aardappelen (0.95/kg)', [Validators.required]],
-      aantal: ['', [Validators.required, Validators.min(1), aantalValidator]] //Aantal moet minstens 1 zijn
-    });
+      aantal: ['', [Validators.required, Validators.min(1)]] //Aantal moet minstens 1 zijn
+    }, {validator: aantalValidator});
   }
 }

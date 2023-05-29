@@ -14,4 +14,10 @@ export class WinkelService {
   getWinkels():Observable<Winkel[]> {
     return of (WINKELS);
   }
+  
+  //Haalt het adres uit een gegeven naam van een winkel
+  getWinkelAdres(adres: string) {
+    let winkelObject = WINKELS.find((winkel) => winkel.naam === adres)
+    return winkelObject.adres;
+  }
 }

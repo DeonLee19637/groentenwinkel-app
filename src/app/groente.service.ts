@@ -5,6 +5,7 @@ import { of, Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 let winkelMandje: Groente[] = [];
+let totalePrijs = 0;
 
 @Injectable({
   providedIn: 'root'
@@ -24,19 +25,26 @@ export class GroenteService {
     && winkelMandje.find((groente) => groente.groenteNaam === groenteNaam);
     if (dubbeleGroente){
       dubbeleGroente.aantal += aantal;
+      totalePrijs += aantal * dubbeleGroente.prijs;
     }
     else{
       winkelMandje.push(artikel);
+      totalePrijs += artikel.prijs * artikel.aantal;
     }
   }
 
   //De prijs van de groente vinden op basis van de naam, aangezien aangeleverde object die informatie niet bevat
   findGroenteByNaam(naam: string): number | null{
-    console.log(naam);
     let juisteGroente = Groenten.find((groente) => groente[0] === naam);
     return juisteGroente ? Number(juisteGroente[1]) : null;
   }
 
+  //Haalt de volledige prijs op
+  getPrijs(): Observable<number>
+  {
+    return of (totalePrijs);
+  }
+  
   //Haalt winkelmandje op
   getWinkelMandje() {
     return winkelMandje;

@@ -10,12 +10,39 @@
         </tr>
     </thead>
     <tbody>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button  (click)="changeCurrency()">{{currentCurrency}}</button></td>
+        </tr>
         <tr *ngFor="let g of artikelen">
-            <td>{{g.winkelNaam}}</td>
+            <td [title]="getWinkel(g.winkelNaam)">{{g.winkelNaam}}</td>
             <td>{{g.groenteNaam}}</td>
             <td>{{g.aantal}}</td>
-            <td>{{g.prijs}}</td>
-            <td>{{g.aantal * g.prijs}}</td>
+            <td>
+                {{reverseCurrency}}: 
+                <ng-container *ngIf="displayUSD; else eurTemplate">{{(g.prijs / 1.2).toFixed(2)}}</ng-container>
+                <ng-template #eurTemplate>{{g.prijs}}</ng-template>
+            </td>
+            <td>
+                <ng-container *ngIf="displayUSD; else eurTemplate">{{((g.aantal * g.prijs) / 1.2).toFixed(2)}}</ng-container>
+                <ng-template #eurTemplate>{{(g.aantal * g.prijs).toFixed(2)}}</ng-template>
+            </td>
         </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td>Totaal te betalen</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td [hidden]="getTotalePrijs()">
+                {{reverseCurrency}}
+                <ng-container *ngIf="displayUSD; else eurTemplate">{{(totalePrijs / 1.2).toFixed(2)}}</ng-container>
+                <ng-template #eurTemplate>{{totalePrijs.toFixed(2)}}</ng-template>
+            </td>
+        </tr>
+    </tfoot>
 </table>
