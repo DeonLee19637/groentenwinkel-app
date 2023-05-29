@@ -1,0 +1,27 @@
+<div class="container-fluid">
+    <form [formGroup]="bestelForm" (ngSubmit)="onSubmit()">
+        {{bestelForm.value | json}}
+        <div class="form-group">
+            <label>Kies Winkel:</label>
+            <select class="form-select" formControlName="naam">
+                <option value="default">-----Kies een winkel-----</option>            
+                <option *ngFor="let winkel of winkels">{{winkel.naam}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Kies groente:</label>
+            <select class="form-select" formControlName="groente">
+                <option value="default">-----Kies een groente-----</option>
+                <option *ngFor="let groente of groenten">{{groente[0]}} ({{groente[1]}}/{{groente[2]}})</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Aantal/gewicht (stuk)</label>
+            <input formControlName="aantal" required type="number" class="form-control" 
+            [class.is-invalid]="aantal.invalid && aantal.touched">
+            <small [class.d-none]="aantal.valid || aantal.untouched" 
+            class="text-danger">Aantal is niet geldig</small>
+        </div>
+        <button [disabled]="!bestelForm.valid" class="btn btn-primary" type="submit">Bestel</button>
+    </form>
+</div>

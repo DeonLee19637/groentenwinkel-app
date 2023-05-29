@@ -1,0 +1,21 @@
+<h3>Winkelmandje</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Winkelnaam</th>
+            <th>Groente</th>
+            <th>Aantal</th>
+            <th>Prijs</th>
+            <th>Totaal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let g of artikelen">
+            <td>{{g.winkelNaam}}</td>
+            <td>{{g.groenteNaam}}</td>
+            <td>{{g.aantal}}</td>
+            <td>{{g.prijs}}</td>
+            <td>{{g.aantal * g.prijs}}</td>
+        </tr>
+    </tbody>
+</table>

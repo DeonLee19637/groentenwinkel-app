@@ -1,5 +1,6 @@
-export class groente {
-    naam!: string;
-    prijs!: number;
-    maat!: string;
+export class Groente {
+    winkelNaam!: string;
+    groenteNaam!: string;
+    prijs: number;
+    aantal!: number;
 }

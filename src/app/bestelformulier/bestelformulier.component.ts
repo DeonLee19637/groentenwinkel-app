@@ -18,11 +18,20 @@ export class BestelformulierComponent implements OnInit {
 
   constructor(private groenteService: GroenteService, private winkelService: WinkelService, private fb: FormBuilder){}
 
+  get naam() {
+    return this.bestelForm.get('naam');
+  }
+  get groente() {
+    return this.bestelForm.get('groente');
+  }
   get aantal() {
     return this.bestelForm.get('aantal');
   }
   onSubmit() {
-    // this.groenteService.addGroenteToMandje().subscribe(groenten => this.groenten = groenten);
+    console.log(this.bestelForm.value);
+    //Geef enkel de naam door van de groente
+    let groenteNaam =  this.groente?.value.substring(0, this.groente?.value.indexOf('('));
+    this.groenteService.addGroenteToMandje(this.naam?.value, groenteNaam, this.aantal?.value);
   }
 
   ngOnInit() {
@@ -31,7 +40,7 @@ export class BestelformulierComponent implements OnInit {
     this.bestelForm = this.fb.group({
       naam: ['', [Validators.required]],
       groente: ['', [Validators.required]],
-      aantal: ['', [Validators.required, Validators.min(1)]]
+      aantal: ['', [Validators.required, Validators.min(1)]] //Aantal moet minstens 1 zijn
     });
   }
 }
