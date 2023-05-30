@@ -27,8 +27,9 @@
                 <ng-template #eurTemplate>{{g.prijs}}</ng-template>
             </td>
             <td>
-                <ng-container *ngIf="displayUSD; else eurTemplate">{{((g.aantal * g.prijs) / conversionRate).toFixed(2)}}</ng-container>
-                <ng-template #eurTemplate>{{(g.aantal * g.prijs).toFixed(2)}}</ng-template>
+                {{reverseCurrency}}: 
+                <ng-container *ngIf="displayUSD; else eurTotalTemplate">{{((g.aantal * g.prijs) / conversionRate).toFixed(2)}}</ng-container>
+                <ng-template #eurTotalTemplate>{{(g.aantal * g.prijs).toFixed(2)}}</ng-template>
             </td>
         </tr>
     </tbody>

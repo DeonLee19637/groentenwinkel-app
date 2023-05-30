@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { GroenteService } from '../groente.service';
 import { WinkelService } from '../winkel.service';
 import { aantalValidator } from '../shared/aantal.validator';
 import { Winkel } from '../model/winkel';
-import { Groente } from '../model/groente';
 
 @Component({
   selector: 'app-bestelformulier',
@@ -40,6 +39,10 @@ export class BestelformulierComponent implements OnInit {
       naam: ['De fruitmand', [Validators.required]],
       groente: ['aardappelen (0.95/kg)', [Validators.required]],
       aantal: ['', [Validators.required, Validators.min(1)]] //Aantal moet minstens 1 zijn
-    }, {validator: aantalValidator});
+    }, {validator: aantalValidator()});
+  }
+
+  getWinkel(naam: string) {
+    return this.winkelService.getWinkelAdres(naam);
   }
 }
