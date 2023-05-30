@@ -36,7 +36,6 @@ export class WinkelmandjeComponent implements OnInit {
 
   //Verandert de currency van Euro naar American Dollar en vice versa
   changeCurrency() {
-    console.log(this.conversionRate);
     if (this.currentCurrency === "USD"){
       this.currentCurrency = "EUR";
       this.reverseCurrency = "USD";

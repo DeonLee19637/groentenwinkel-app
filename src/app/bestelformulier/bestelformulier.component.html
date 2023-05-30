@@ -1,5 +1,5 @@
 <div class="container-fluid">
-    <form [formGroup]="bestelForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="bestelForm" (ngSubmit)="onSubmit()" class="form-horizontal m-3">
         <div class="form-group">
             <label>Kies Winkel:</label>
             <select class="form-select" formControlName="naam">
@@ -19,7 +19,9 @@
             <small [class.d-none]="aantal.valid || aantal.untouched" 
             class="text-danger">Aantal is niet geldig</small>
         </div>
-        <small class="text-danger" *ngIf="bestelForm.errors?.misMatch">Komma's zijn enkel toegelaten met groenten per kilo</small>
+        <div class="form-group">
+            <small class="text-danger" *ngIf="bestelForm.errors?.misMatch">Komma's zijn enkel toegelaten met groenten per kilo</small>
+        </div>
         <button [disabled]="!bestelForm.valid" class="btn btn-primary" type="submit">Bestel</button>
     </form>
 </div>

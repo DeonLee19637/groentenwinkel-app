@@ -26,6 +26,7 @@ export class BestelformulierComponent implements OnInit {
   get aantal() {
     return this.bestelForm.get('aantal');
   }
+  
   onSubmit() {
     //Geeft enkel de naam door van de groente
     let groenteNaam =  this.groente?.value.substring(0, this.groente?.value.indexOf('('));
