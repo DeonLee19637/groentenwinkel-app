@@ -23,11 +23,11 @@
             <td>{{g.aantal}}</td>
             <td>
                 {{reverseCurrency}}: 
-                <ng-container *ngIf="displayUSD; else eurTemplate">{{(g.prijs / 1.2).toFixed(2)}}</ng-container>
+                <ng-container *ngIf="displayUSD; else eurTemplate">{{(g.prijs / conversionRate).toFixed(2)}}</ng-container>
                 <ng-template #eurTemplate>{{g.prijs}}</ng-template>
             </td>
             <td>
-                <ng-container *ngIf="displayUSD; else eurTemplate">{{((g.aantal * g.prijs) / 1.2).toFixed(2)}}</ng-container>
+                <ng-container *ngIf="displayUSD; else eurTemplate">{{((g.aantal * g.prijs) / conversionRate).toFixed(2)}}</ng-container>
                 <ng-template #eurTemplate>{{(g.aantal * g.prijs).toFixed(2)}}</ng-template>
             </td>
         </tr>
@@ -40,7 +40,7 @@
             <td></td>
             <td [hidden]="getTotalePrijs()">
                 {{reverseCurrency}}
-                <ng-container *ngIf="displayUSD; else eurTemplate">{{(totalePrijs / 1.2).toFixed(2)}}</ng-container>
+                <ng-container *ngIf="displayUSD; else eurTemplate">{{(totalePrijs / conversionRate).toFixed(2)}}</ng-container>
                 <ng-template #eurTemplate>{{totalePrijs.toFixed(2)}}</ng-template>
             </td>
         </tr>

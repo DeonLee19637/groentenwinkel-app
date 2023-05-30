@@ -46,7 +46,7 @@ export class GroenteService {
   }
   
   //Haalt winkelmandje op
-  getWinkelMandje() {
-    return winkelMandje;
+  getWinkelMandje(): Observable<Groente[]> {
+    return of(winkelMandje);
   }
 }

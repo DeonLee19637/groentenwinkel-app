@@ -15,15 +15,13 @@ export class WinkelmandjeComponent implements OnInit {
   currentCurrency = "USD";
   reverseCurrency = "EUR";
   displayUSD = false;
+  conversionRate: number;
+
   constructor(private groenteService: GroenteService, private winkelService: WinkelService, 
     private currencyService: CurrencyService){}
   ngOnInit(): void {
-    this.addArtikel();
-  }
-  
-  //Artikel ophalen van de service en toevoegen aan de view
-  addArtikel(){
-    this.artikelen = this.groenteService.getWinkelMandje();
+    this.groenteService.getWinkelMandje().subscribe(artikel => this.artikelen = artikel);
+    this.currencyService.getCurrency().subscribe(data => this.conversionRate = data);
   }
 
   //Prijs ophalen van de service en updaten in de view
@@ -36,8 +34,9 @@ export class WinkelmandjeComponent implements OnInit {
     return this.winkelService.getWinkelAdres(naam);
   }
 
+  //Verandert de currency van Euro naar American Dollar en vice versa
   changeCurrency() {
-    // this.currencyService.getCurrency();
+    console.log(this.conversionRate);
     if (this.currentCurrency === "USD"){
       this.currentCurrency = "EUR";
       this.reverseCurrency = "USD";
